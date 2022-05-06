@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import { ApolloError, useApolloClient, useQuery } from "@apollo/client";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, Checkbox } from "antd";
 import { personalToken } from "../api";
 import { User, WHOAMI } from "../gql";
 
@@ -11,15 +11,32 @@ export const Auth = () => {
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
     personalToken(values.token);
-    client.query({ query: WHOAMI }).catch((error) => {
-      form.setFields([{ name: "token", errors: [error.message] }]);
-    });
+    client
+      .query({ query: WHOAMI })
+      .then(() => {
+        console.log(values);
+        if (values.remember) {
+          localStorage.setItem("token", values.token);
+        } else {
+          localStorage.removeItem("token");
+        }
+      })
+      .catch((error) => {
+        form.setFields([{ name: "token", errors: [error.message] }]);
+      });
   };
 
   return (
-    <div className="Auth-layout">
-      <div className="Auth-container">
-        <Form form={form} layout="vertical" labelAlign="left" onFinish={onFinish} autoComplete="off">
+    <div className="Auth-layout ">
+      <div className="Auth-container Border-container">
+        <Form
+          form={form}
+          layout="vertical"
+          labelAlign="left"
+          onFinish={onFinish}
+          autoComplete="off"
+          initialValues={{ remember: true, token: localStorage.getItem("token") ?? "" }}
+        >
           <Title className="Auth-title" level={4}>
             Github authorization
           </Title>
@@ -29,7 +46,11 @@ export const Auth = () => {
             name="token"
             rules={[{ required: true, message: "Please input your personal token!" }]}
           >
-            <Input />
+            <Input placeholder="input here" />
+          </Form.Item>
+
+          <Form.Item name="remember" valuePropName="checked">
+            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item className="text-right">

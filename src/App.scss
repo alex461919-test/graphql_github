@@ -14,16 +14,18 @@ html * {
   align-items: center;
   min-height: 100vh;
   .Auth-container {
-    padding: 1rem;
-    margin: 1rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 0.25rem;
     width: 26rem;
     .Auth-title {
       text-align: center;
       margin-bottom: 1rem;
     }
   }
+}
+.Border-container {
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.25rem;
 }
 .reflex-container {
   height: 100vh !important;

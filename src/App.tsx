@@ -14,7 +14,7 @@ function App() {
     return (
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route path=":repo" element={<Issues />}></Route>
+          <Route path=":owner/:name" element={<Issues />}></Route>
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

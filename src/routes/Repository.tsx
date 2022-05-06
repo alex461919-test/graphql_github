@@ -3,14 +3,14 @@ import { Typography } from "antd";
 import React, { useState } from "react";
 import { ReflexElement, ReflexSplitter } from "react-reflex";
 import { Outlet, useParams } from "react-router-dom";
-import { SearchRepositoryResult, SEARCH_REPOSITORY } from "../gql";
+import { SearchRepositoryResultItemConnection, SEARCH_REPOSITORY } from "../gql";
 
 const { Title } = Typography;
 
 export const Repository: React.FC = () => {
   const { repo } = useParams();
   const [repoQuery, setRepoQuery] = useState("");
-  const { loading, error, data } = useQuery<SearchRepositoryResult, { query: string }>(SEARCH_REPOSITORY, {
+  const { loading, error, data } = useQuery<SearchRepositoryResultItemConnection, { query: string }>(SEARCH_REPOSITORY, {
     variables: { query: "react" },
   });
   console.log(data);

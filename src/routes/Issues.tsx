@@ -3,7 +3,7 @@ import { Typography } from "antd";
 import React, { useState } from "react";
 import { ReflexElement, ReflexSplitter } from "react-reflex";
 import { Outlet, useParams } from "react-router-dom";
-import { SearchRepositoryResult, SEARCH_REPOSITORY } from "../gql";
+import { SearchRepositoryResultItemConnection, SEARCH_REPOSITORY } from "../gql";
 
 const { Title } = Typography;
 
@@ -18,5 +18,5 @@ export const Issues: React.FC = () => {
   });
   console.log(data);
 */
-  return <div style={{ backgroundColor: "#e0f0e0" }}>Issues of {params.repo}</div>;
+  return <div style={{ backgroundColor: "#e0f0e0" }}>Issues of </div>;
 };
