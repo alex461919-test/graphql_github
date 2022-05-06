@@ -25,6 +25,14 @@ html * {
     }
   }
 }
+.reflex-container {
+  height: 100vh !important;
+}
+
+.right-pane {
+  overflow: hidden !important;
+}
+
 .text-right {
   text-align: right !important;
 }

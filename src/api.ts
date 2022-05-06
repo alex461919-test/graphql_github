@@ -4,7 +4,7 @@ import { message } from "antd";
 import { MessageType } from "antd/lib/message";
 import debounce from "lodash.debounce";
 
-const personalToken = makeVar<string>("");
+const personalToken = makeVar<string>("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");
 const activeProcesses = makeVar<string[]>([]);
 
 //   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1
