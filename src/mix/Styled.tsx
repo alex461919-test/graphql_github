@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import shouldForwardProp from "@styled-system/should-forward-prop";
 import {
   color,
   space,
@@ -21,6 +22,12 @@ import {
   TypographyProps,
 } from "styled-system";
 
+export const styledTheme = {
+  space: Array(512)
+    .fill(null)
+    .map((value, index) => index),
+};
+
 export interface BoxProps
   extends SpaceProps,
     ColorProps,
@@ -32,7 +39,7 @@ export interface BoxProps
     BackgroundProps,
     TypographyProps {}
 
-const _Box = styled.div<BoxProps>`
+const _Box_ = styled("div", process.env.NODE_ENV === "production" ? { shouldForwardProp } : {})<BoxProps>`
   ${color}
   ${space}
   ${layout}
@@ -43,4 +50,5 @@ const _Box = styled.div<BoxProps>`
   ${background}
   ${typography}
 `;
-export const Box = React.memo(_Box);
+
+export const Box = React.memo(_Box_);

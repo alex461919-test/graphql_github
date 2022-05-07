@@ -11,6 +11,7 @@ import {
   IssueFieldsFragment,
   useGetIssuesQuery,
 } from "../graphql/github";
+import { Box } from "../mix/Styled";
 
 const { Title } = Typography;
 
@@ -35,34 +36,21 @@ export const Issues: React.FC = () => {
   console.log(issues);
 
   return (
-    <div style={{ overflowY: "auto" }}>
-      <List
-        header={<div>Header</div>}
-        footer={<div>Footer</div>}
-        bordered
-        dataSource={issues}
-        renderItem={(item) => (
-          <List.Item key={item.id}>
-            <List.Item.Meta
-              avatar={<Avatar src={isUser(item.author) ? item.author.avatarUrl : null} />}
-              title={isUser(item.author) ? item.author.login : null}
-              description={item.title}
-            />
-            <div>{item.createdAt}</div>
-          </List.Item>
-        )}
-      />
-    </div>
-  );
-};
-const IssueItem: React.FC<{ issue: IssueFieldsFragment }> = ({ issue }) => {
-  return (
-    <Row>
-      <Col flex="auto">{isUser(issue.author) ? issue.author.name : ""}</Col>
-      <Col flex="auto" style={{ marginLeft: "auto" }}>
-        {issue.createdAt}
-      </Col>
-      <Col flex={24}>{issue.title}</Col>
-    </Row>
+    <List
+      header={<div>Header</div>}
+      footer={<div>Footer</div>}
+      bordered
+      dataSource={issues}
+      renderItem={(item) => (
+        <List.Item key={item.id}>
+          <List.Item.Meta
+            avatar={<Avatar src={isUser(item.author) ? item.author.avatarUrl : null} />}
+            title={isUser(item.author) ? item.author.login : null}
+            description={item.title}
+          />
+          <div>{item.createdAt}</div>
+        </List.Item>
+      )}
+    />
   );
 };

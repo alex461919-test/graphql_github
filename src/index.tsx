@@ -7,6 +7,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { link } from "./api";
 import { AuthProvider } from "./routes/Auth";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider as StyledThemeProvider } from "@emotion/react";
+import { styledTheme } from "./mix/Styled";
 
 const client = new ApolloClient({ cache: new InMemoryCache(), link });
 
@@ -14,11 +16,13 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 
 root.render(
   <ApolloProvider client={client}>
-    <AuthProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </AuthProvider>
+    <StyledThemeProvider theme={styledTheme}>
+      <AuthProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AuthProvider>
+    </StyledThemeProvider>
   </ApolloProvider>
 );
 

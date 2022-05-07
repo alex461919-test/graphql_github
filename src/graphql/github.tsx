@@ -23866,7 +23866,7 @@ export const GetIssuesDocument = gql`
     query getIssues($name: String!, $owner: String!) {
   repository(name: $name, owner: $owner) {
     id
-    issues(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+    issues(first: 15, orderBy: {field: CREATED_AT, direction: DESC}) {
       nodes {
         ...IssueFields
       }

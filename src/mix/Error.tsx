@@ -1,5 +1,6 @@
 import { Typography } from "antd";
 import { Link } from "react-router-dom";
+import { Box } from "./Styled";
 
 const { Title } = Typography;
 
@@ -41,11 +42,13 @@ const ErrorPage = (error: ErrorStatus) => (
         </g>
       </svg>
 
-      <div style={{ color: "black" }}>
-        {error.errorStatus && <div style={{ fontSize: 64 }}>{error.errorStatus}</div>}
-        <Title level={2}>{error.errorStatusText}</Title>
-        {error.errorDescription && <p>{error.errorDescription}</p>}
-      </div>
+      {error.errorStatus && (
+        <Box fontSize={64} color="black" mb={4} mt={2} ml={0}>
+          {error.errorStatus}
+        </Box>
+      )}
+      <Title level={2}>{error.errorStatusText}</Title>
+      {error.errorDescription && <p>{error.errorDescription}</p>}
       <Link to="/">Перейти на главную страницу</Link>
     </div>
   </div>
