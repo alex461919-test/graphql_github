@@ -1,35 +1,41 @@
-import { useQuery } from "@apollo/client";
-import { Typography } from "antd";
-import React, { useState } from "react";
-import { ReflexElement, ReflexSplitter } from "react-reflex";
-import { Outlet, useParams } from "react-router-dom";
-import { SearchRepositoryResultItemConnection, SEARCH_REPOSITORY } from "../gql";
+import { Table } from "antd";
+import { RepositoryFieldsFragment } from "../graphql/github";
 
-const { Title } = Typography;
-
-export const Repository: React.FC = () => {
-  const { repo } = useParams();
-  const [repoQuery, setRepoQuery] = useState("");
-  const { loading, error, data } = useQuery<SearchRepositoryResultItemConnection, { query: string }>(SEARCH_REPOSITORY, {
-    variables: { query: "react" },
-  });
-  console.log(data);
-
+export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
+  repository: {
+    name,
+    url,
+    owner: { login },
+  },
+}) => {
+  const dataSource = [
+    {
+      key: "1",
+      label: "Владелец:",
+      value: login,
+    },
+    {
+      key: "2",
+      label: "Название:",
+      value: name,
+    },
+    {
+      key: "3",
+      label: "Url:",
+      value: <a href={url}>{url}</a>,
+    },
+  ];
+  const columns = [
+    {
+      dataIndex: "label",
+      key: "label",
+    },
+    {
+      dataIndex: "value",
+      key: "value",
+    },
+  ];
   return (
-    <>
-      <ReflexElement className="left-pane" minSize={400} flex={0.3}>
-        <div style={{ backgroundColor: "#e0e0f0" }}>Repositories</div>
-      </ReflexElement>
-      <ReflexSplitter />
-      <ReflexElement className="right-pane" minSize={500}>
-        <Outlet />
-      </ReflexElement>
-    </>
+    <Table id="repository-table" showHeader={false} pagination={false} size="small" dataSource={dataSource} columns={columns} />
   );
 };
-/*
- <div>
-      <Title level={4}>Repo № {repo}</Title>
-      <Outlet />
-    </div>
-*/

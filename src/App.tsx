@@ -3,9 +3,8 @@ import "./App.scss";
 import { Auth, useAuth } from "./routes/Auth";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./routes/Home";
-import { Repository } from "./routes/Repository";
-import { Page404 } from "./routes/Page404";
 import { Issues } from "./routes/Issues";
+import { Error404 } from "./mix/Error";
 
 function App() {
   const { user, pending } = useAuth();
@@ -16,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />}>
           <Route path=":owner/:name" element={<Issues />}></Route>
         </Route>
-        <Route path="*" element={<Page404 />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     );
   return <></>;

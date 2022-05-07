@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect } from "react";
 import { ApolloError, useApolloClient, useQuery } from "@apollo/client";
 import { Form, Input, Button, Typography, Checkbox } from "antd";
 import { personalToken } from "../api";
-import { User, WHOAMI } from "../gql";
+import { GetViewerDocument, useGetViewerQuery, UserFieldsFragment } from "../graphql/github";
 
 const { Title } = Typography;
 
@@ -12,9 +12,8 @@ export const Auth = () => {
   const onFinish = (values: any) => {
     personalToken(values.token);
     client
-      .query({ query: WHOAMI })
+      .query({ query: GetViewerDocument })
       .then(() => {
-        console.log(values);
         if (values.remember) {
           localStorage.setItem("token", values.token);
         } else {
@@ -27,7 +26,7 @@ export const Auth = () => {
   };
 
   return (
-    <div className="Auth-layout ">
+    <div className="Full-window-layout">
       <div className="Auth-container Border-container">
         <Form
           form={form}
@@ -63,28 +62,13 @@ export const Auth = () => {
     </div>
   );
 };
-/*
-const AuthContext = React.createContext<{ loading: boolean; error: ApolloError | undefined; user: User | null }>(null!);
+
+const AuthContext = React.createContext<{ pending: boolean; user: UserFieldsFragment | null }>(null!);
 
 export const useAuth = () => React.useContext(AuthContext);
 
 export const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  let [user, setUser] = React.useState<User | null>(null);
-  const { loading, error, data } = useQuery<{ viewer: User }>(WHOAMI);
-
-  useEffect(() => {
-    setUser(data?.viewer || null);
-  }, [data?.viewer]);
-
-  return <AuthContext.Provider value={{ user, loading, error }}>{children}</AuthContext.Provider>;
-};
-*/
-const AuthContext = React.createContext<{ pending: boolean; user: User | null }>(null!);
-
-export const useAuth = () => React.useContext(AuthContext);
-
-export const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const { error, data } = useQuery<{ viewer: User }>(WHOAMI);
+  const { error, data } = useGetViewerQuery();
   const user = data?.viewer || null;
   const pending = !error && !user;
 

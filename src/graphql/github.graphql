@@ -1,0 +1,61 @@
+fragment UserFields on User {
+  id
+  login
+  name
+  avatarUrl
+}
+
+query GetViewer {
+  viewer {
+    ...UserFields
+  }
+}
+
+query SearchRepository($query: String!) {
+  search(query: $query, type: REPOSITORY, first: 20) {
+    nodes {
+      ... on Repository {
+        ...RepositoryFields
+      }
+    }
+    repositoryCount
+  }
+}
+fragment RepositoryFields on Repository {
+  id
+  name
+  description
+  url
+  owner {
+    login
+  }
+}
+
+query getRepository($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    ...RepositoryFields
+  }
+}
+
+fragment IssueFields on Issue {
+  id
+  title
+  createdAt
+  author {
+    ... on User {
+      ...UserFields
+    }
+  }
+}
+
+query getIssues($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    id
+    issues(first: 10, orderBy: { field: CREATED_AT, direction: DESC }) {
+      nodes {
+        ...IssueFields
+      }
+      totalCount
+    }
+  }
+}
