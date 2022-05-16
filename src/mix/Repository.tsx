@@ -1,8 +1,12 @@
-import { Table } from "antd";
+import { Table, Typography } from "antd";
 import { RepositoryFieldsFragment } from "../graphql/github";
+import { Box } from "./Styled";
+
+const { Title } = Typography;
 
 export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
   repository: {
+    id,
     name,
     url,
     owner: { login },
@@ -11,16 +15,21 @@ export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
   const dataSource = [
     {
       key: "1",
+      label: "id:",
+      value: id,
+    },
+    {
+      key: "2",
       label: "Владелец:",
       value: login,
     },
     {
-      key: "2",
+      key: "3",
       label: "Название:",
       value: name,
     },
     {
-      key: "3",
+      key: "4",
       label: "Url:",
       value: <a href={url}>{url}</a>,
     },
@@ -36,6 +45,13 @@ export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
     },
   ];
   return (
-    <Table id="repository-table" showHeader={false} pagination={false} size="small" dataSource={dataSource} columns={columns} />
+    <>
+      <Box mb="1rem">
+        <Title className="Au1th-title" level={4}>
+          Репозиторий
+        </Title>
+      </Box>
+      <Table id="repository-table" showHeader={false} pagination={false} size="small" dataSource={dataSource} columns={columns} />
+    </>
   );
 };

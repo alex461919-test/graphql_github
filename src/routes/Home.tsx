@@ -9,32 +9,41 @@ import {
 } from "../graphql/github";
 import { useApolloClient } from "@apollo/client";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { SearchRepositoryForm } from "./SearchRepositoryForm";
-import { Col, Row } from "antd";
-import { Repository } from "./Repository";
+import { SearchRepositoryForm } from "../mix/SearchRepositoryForm";
+import { Repository } from "../mix/Repository";
+import { isRepositoryFieldsFragment } from "../graphql/additional";
+import { showNotificationError } from "../mix/modal";
 
 export const Home: React.FC = () => {
+  const client = useApolloClient();
   const { owner, name } = useParams();
   const navigate = useNavigate();
-  const client = useApolloClient();
 
   const [selectedRepository, setSelectedRepository] = useState<RepositoryFieldsFragment | null>(null);
+
+  useEffect(() => {
+    (async function () {
+      let repository: RepositoryFieldsFragment | null = null;
+      if (owner !== undefined && name !== undefined) {
+        await client
+          .query<GetRepositoryQuery, GetRepositoryQueryVariables>({ query: GetRepositoryDocument, variables: { owner, name } })
+          .then((value) => {
+            if (isRepositoryFieldsFragment(value.data?.repository)) {
+              repository = value.data.repository;
+            }
+          })
+          .catch((error) => showNotificationError({ message: "Get repository error!", description: error.message }));
+      }
+      setSelectedRepository(repository);
+    })();
+  }, [client, name, owner]);
 
   const onSelect = (repo: RepositoryFieldsFragment) => {
     navigate(`${repo.owner.login}/${repo.name}`);
   };
-  useEffect(() => {
-    if (owner !== undefined && name !== undefined) {
-      client
-        .query<GetRepositoryQuery, GetRepositoryQueryVariables>({ query: GetRepositoryDocument, variables: { owner, name } })
-        .then((repository) => {
-          setSelectedRepository(repository.data.repository || null);
-        });
-    } else setSelectedRepository(null);
-  }, [owner, name, client]);
 
   return (
-    <ReflexContainer orientation="vertical" style={{ minHeight: "100vh" }}>
+    <ReflexContainer orientation="vertical">
       <ReflexElement className="left-pane" minSize={400} flex={0.3}>
         <div className="Border-container">
           <SearchRepositoryForm onSelect={onSelect} />

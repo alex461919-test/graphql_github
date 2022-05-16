@@ -5,7 +5,7 @@ fragment UserFields on User {
   avatarUrl
 }
 
-query GetViewer {
+query GetCurrentViewer {
   viewer {
     ...UserFields
   }
@@ -21,6 +21,7 @@ query SearchRepository($query: String!) {
     repositoryCount
   }
 }
+
 fragment RepositoryFields on Repository {
   id
   name
@@ -56,6 +57,20 @@ query getIssues($name: String!, $owner: String!) {
         ...IssueFields
       }
       totalCount
+    }
+  }
+}
+
+#input CreateIssueInput {
+#  repositoryId: String!
+#  title: String!
+#  body: String!
+#}
+
+mutation CreateIssue($issue: CreateIssueInput!) {
+  createIssue(input: $issue) {
+    issue {
+      ...IssueFields
     }
   }
 }

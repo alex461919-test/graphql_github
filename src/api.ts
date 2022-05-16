@@ -4,10 +4,8 @@ import { message } from "antd";
 import { MessageType } from "antd/lib/message";
 import debounce from "lodash.debounce";
 
-const personalToken = makeVar<string>("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");
+const personalToken = makeVar<string>("");
 const activeProcesses = makeVar<string[]>([]);
-
-//   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1
 
 (async () => {
   let hide: MessageType | null = null;

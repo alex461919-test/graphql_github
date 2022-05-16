@@ -8,6 +8,7 @@ import {
 import { ApolloClient, useApolloClient } from "@apollo/client";
 import { AutoComplete, Button, Form, Typography } from "antd";
 import { isRepositoryFieldsFragmentsArray } from "../graphql/additional";
+import { Box } from "./Styled";
 
 const { Title } = Typography;
 
@@ -34,9 +35,11 @@ export const SearchRepositoryForm: React.FC<{ onSelect?: (arg: RepositoryFieldsF
 
   return (
     <Form form={form} layout="vertical" labelAlign="left" onFinish={onFinish} autoComplete="off">
-      <Title className="Auth-title" level={4}>
-        Поиск репозитория
-      </Title>
+      <Box mb="1rem" minWidth="26rem">
+        <Title className="Auth-title" level={4}>
+          Поиск
+        </Title>
+      </Box>
 
       <Form.Item label="Repository" name="repository" rules={[{ required: true, message: "Please input repository!" }]}>
         <AutoComplete options={options} onChange={onChange} onSearch={onSearch} placeholder="input here" />

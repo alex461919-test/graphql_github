@@ -23689,10 +23689,10 @@ export type WorkflowRunPendingDeploymentRequestsArgs = {
 
 export type UserFieldsFragment = { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any };
 
-export type GetViewerQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCurrentViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetViewerQuery = { __typename?: 'Query', viewer: { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } };
+export type GetCurrentViewerQuery = { __typename?: 'Query', viewer: { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } };
 
 export type SearchRepositoryQueryVariables = Exact<{
   query: Scalars['String'];
@@ -23720,6 +23720,13 @@ export type GetIssuesQueryVariables = Exact<{
 
 
 export type GetIssuesQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issues: { __typename?: 'IssueConnection', totalCount: number, nodes?: Array<{ __typename?: 'Issue', id: string, title: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null } } | null };
+
+export type CreateIssueMutationVariables = Exact<{
+  issue: CreateIssueInput;
+}>;
+
+
+export type CreateIssueMutation = { __typename?: 'Mutation', createIssue?: { __typename?: 'CreateIssuePayload', issue?: { __typename?: 'Issue', id: string, title: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
 
 export const RepositoryFieldsFragmentDoc = gql`
     fragment RepositoryFields on Repository {
@@ -23752,8 +23759,8 @@ export const IssueFieldsFragmentDoc = gql`
   }
 }
     ${UserFieldsFragmentDoc}`;
-export const GetViewerDocument = gql`
-    query GetViewer {
+export const GetCurrentViewerDocument = gql`
+    query GetCurrentViewer {
   viewer {
     ...UserFields
   }
@@ -23761,31 +23768,31 @@ export const GetViewerDocument = gql`
     ${UserFieldsFragmentDoc}`;
 
 /**
- * __useGetViewerQuery__
+ * __useGetCurrentViewerQuery__
  *
- * To run a query within a React component, call `useGetViewerQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetViewerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetCurrentViewerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentViewerQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetViewerQuery({
+ * const { data, loading, error } = useGetCurrentViewerQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetViewerQuery(baseOptions?: Apollo.QueryHookOptions<GetViewerQuery, GetViewerQueryVariables>) {
+export function useGetCurrentViewerQuery(baseOptions?: Apollo.QueryHookOptions<GetCurrentViewerQuery, GetCurrentViewerQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetViewerQuery, GetViewerQueryVariables>(GetViewerDocument, options);
+        return Apollo.useQuery<GetCurrentViewerQuery, GetCurrentViewerQueryVariables>(GetCurrentViewerDocument, options);
       }
-export function useGetViewerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetViewerQuery, GetViewerQueryVariables>) {
+export function useGetCurrentViewerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentViewerQuery, GetCurrentViewerQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetViewerQuery, GetViewerQueryVariables>(GetViewerDocument, options);
+          return Apollo.useLazyQuery<GetCurrentViewerQuery, GetCurrentViewerQueryVariables>(GetCurrentViewerDocument, options);
         }
-export type GetViewerQueryHookResult = ReturnType<typeof useGetViewerQuery>;
-export type GetViewerLazyQueryHookResult = ReturnType<typeof useGetViewerLazyQuery>;
-export type GetViewerQueryResult = Apollo.QueryResult<GetViewerQuery, GetViewerQueryVariables>;
+export type GetCurrentViewerQueryHookResult = ReturnType<typeof useGetCurrentViewerQuery>;
+export type GetCurrentViewerLazyQueryHookResult = ReturnType<typeof useGetCurrentViewerLazyQuery>;
+export type GetCurrentViewerQueryResult = Apollo.QueryResult<GetCurrentViewerQuery, GetCurrentViewerQueryVariables>;
 export const SearchRepositoryDocument = gql`
     query SearchRepository($query: String!) {
   search(query: $query, type: REPOSITORY, first: 20) {
@@ -23904,3 +23911,38 @@ export function useGetIssuesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type GetIssuesQueryHookResult = ReturnType<typeof useGetIssuesQuery>;
 export type GetIssuesLazyQueryHookResult = ReturnType<typeof useGetIssuesLazyQuery>;
 export type GetIssuesQueryResult = Apollo.QueryResult<GetIssuesQuery, GetIssuesQueryVariables>;
+export const CreateIssueDocument = gql`
+    mutation CreateIssue($issue: CreateIssueInput!) {
+  createIssue(input: $issue) {
+    issue {
+      ...IssueFields
+    }
+  }
+}
+    ${IssueFieldsFragmentDoc}`;
+export type CreateIssueMutationFn = Apollo.MutationFunction<CreateIssueMutation, CreateIssueMutationVariables>;
+
+/**
+ * __useCreateIssueMutation__
+ *
+ * To run a mutation, you first call `useCreateIssueMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateIssueMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createIssueMutation, { data, loading, error }] = useCreateIssueMutation({
+ *   variables: {
+ *      issue: // value for 'issue'
+ *   },
+ * });
+ */
+export function useCreateIssueMutation(baseOptions?: Apollo.MutationHookOptions<CreateIssueMutation, CreateIssueMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateIssueMutation, CreateIssueMutationVariables>(CreateIssueDocument, options);
+      }
+export type CreateIssueMutationHookResult = ReturnType<typeof useCreateIssueMutation>;
+export type CreateIssueMutationResult = Apollo.MutationResult<CreateIssueMutation>;
+export type CreateIssueMutationOptions = Apollo.BaseMutationOptions<CreateIssueMutation, CreateIssueMutationVariables>;

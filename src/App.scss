@@ -15,13 +15,7 @@ html * {
   align-items: center;
   min-height: 100vh;
 }
-.Auth-container {
-  width: 26rem;
-  .Auth-title {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-}
+
 .Border-container {
   padding: 1rem;
   margin: 1rem;
@@ -39,5 +33,5 @@ html * {
   text-align: center !important;
 }
 #repository-table tbody td:first-child {
-  text-align: right;
+  text-align: left;
 }

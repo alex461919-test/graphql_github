@@ -1,8 +1,9 @@
-import React, { PropsWithChildren, useEffect } from "react";
-import { ApolloError, useApolloClient, useQuery } from "@apollo/client";
+import React, { PropsWithChildren } from "react";
+import { useApolloClient } from "@apollo/client";
 import { Form, Input, Button, Typography, Checkbox } from "antd";
 import { personalToken } from "../api";
-import { GetViewerDocument, useGetViewerQuery, UserFieldsFragment } from "../graphql/github";
+import { GetCurrentViewerDocument, useGetCurrentViewerQuery, UserFieldsFragment } from "../graphql/github";
+import { Box } from "../mix/Styled";
 
 const { Title } = Typography;
 
@@ -12,7 +13,7 @@ export const Auth = () => {
   const onFinish = (values: any) => {
     personalToken(values.token);
     client
-      .query({ query: GetViewerDocument })
+      .query({ query: GetCurrentViewerDocument })
       .then(() => {
         if (values.remember) {
           localStorage.setItem("token", values.token);
@@ -27,7 +28,7 @@ export const Auth = () => {
 
   return (
     <div className="Full-window-layout">
-      <div className="Auth-container Border-container">
+      <Box className="Border-container" minWidth="26rem">
         <Form
           form={form}
           layout="vertical"
@@ -36,9 +37,9 @@ export const Auth = () => {
           autoComplete="off"
           initialValues={{ remember: true, token: localStorage.getItem("token") ?? "" }}
         >
-          <Title className="Auth-title" level={4}>
-            Github authorization
-          </Title>
+          <Box mb="1rem" textAlign="center">
+            <Title level={4}>Github authorization</Title>
+          </Box>
 
           <Form.Item
             label="Your personal token"
@@ -58,7 +59,7 @@ export const Auth = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </Box>
     </div>
   );
 };
@@ -68,7 +69,7 @@ const AuthContext = React.createContext<{ pending: boolean; user: UserFieldsFrag
 export const useAuth = () => React.useContext(AuthContext);
 
 export const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const { error, data } = useGetViewerQuery();
+  const { error, data } = useGetCurrentViewerQuery();
   const user = data?.viewer || null;
   const pending = !error && !user;
 
