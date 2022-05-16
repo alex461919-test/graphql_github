@@ -1,4 +1,4 @@
-import { IssueFieldsFragment, RepositoryFieldsFragment, User } from "./github";
+import { CommentFieldsFragment, IssueFieldsFragment, RepositoryFieldsFragment, User } from "./github";
 
 export function isRepositoryFieldsFragment(obj: any): obj is RepositoryFieldsFragment {
   return typeof obj === "object" && (obj as RepositoryFieldsFragment).__typename === "Repository";
@@ -14,6 +14,13 @@ export function isIssueFieldsFragment(obj: any): obj is IssueFieldsFragment {
 
 export function isIssueFieldsFragmentsArray(obj: any): obj is Array<IssueFieldsFragment> {
   return Array.isArray(obj) && isIssueFieldsFragment(obj[0]);
+}
+export function isCommentFieldsFragment(obj: any): obj is CommentFieldsFragment {
+  return typeof obj === "object" && (obj as CommentFieldsFragment).__typename === "IssueComment";
+}
+
+export function isCommentFieldsFragmentsArray(obj: any): obj is Array<CommentFieldsFragment> {
+  return Array.isArray(obj) && isCommentFieldsFragment(obj[0]);
 }
 
 export function isUser(obj: any): obj is User {

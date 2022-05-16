@@ -41,6 +41,8 @@ query getRepository($name: String!, $owner: String!) {
 fragment IssueFields on Issue {
   id
   title
+  number
+  body
   createdAt
   author {
     ... on User {
@@ -49,7 +51,7 @@ fragment IssueFields on Issue {
   }
 }
 
-query getIssues($name: String!, $owner: String!) {
+query getIssuesList($name: String!, $owner: String!) {
   repository(name: $name, owner: $owner) {
     id
     issues(first: 15, orderBy: { field: CREATED_AT, direction: DESC }) {
@@ -61,16 +63,36 @@ query getIssues($name: String!, $owner: String!) {
   }
 }
 
-#input CreateIssueInput {
-#  repositoryId: String!
-#  title: String!
-#  body: String!
-#}
-
 mutation CreateIssue($issue: CreateIssueInput!) {
   createIssue(input: $issue) {
     issue {
       ...IssueFields
+    }
+  }
+}
+
+fragment CommentFields on IssueComment {
+  id
+  body
+  createdAt
+  author {
+    ... on User {
+      ...UserFields
+    }
+  }
+}
+
+query getIssue($name: String!, $owner: String!, $number: Int!) {
+  repository(name: $name, owner: $owner) {
+    id
+    issue(number: $number) {
+      ...IssueFields
+      comments(first: 10) {
+        totalCount
+        nodes {
+          ...CommentFields
+        }
+      }
     }
   }
 }

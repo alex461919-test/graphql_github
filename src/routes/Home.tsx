@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
   }, [client, name, owner]);
 
   const onSelect = (repo: RepositoryFieldsFragment) => {
-    navigate(`${repo.owner.login}/${repo.name}`);
+    navigate(`/${repo.owner.login}/${repo.name}`);
   };
 
   return (

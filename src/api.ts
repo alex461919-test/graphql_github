@@ -3,6 +3,7 @@ import { setContext } from "@apollo/client/link/context";
 import { message } from "antd";
 import { MessageType } from "antd/lib/message";
 import debounce from "lodash.debounce";
+import { resolve } from "path";
 
 const personalToken = makeVar<string>("");
 const activeProcesses = makeVar<string[]>([]);
@@ -42,10 +43,16 @@ function not<T>(pattern: T) {
   return (value: T): boolean => pattern !== value;
 }
 
+function delay(duration: number) {
+  return new Promise((resolve) => setTimeout(resolve, duration));
+}
+
 const customFetch: typeof fetch = async (...args) => {
   const reqid = (Math.random() + 1).toString(36).substring(2);
   activeProcesses([...activeProcesses(), reqid]);
   try {
+    // Имитация работы по сети
+    await delay(500);
     return await fetch(...args);
   } finally {
     activeProcesses(activeProcesses().filter(not(reqid)));

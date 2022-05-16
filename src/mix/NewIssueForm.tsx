@@ -6,7 +6,7 @@ import {
   CreateIssueDocument,
   CreateIssueMutation,
   CreateIssueMutationVariables,
-  GetIssuesDocument,
+  GetIssuesListDocument,
   RepositoryFieldsFragment,
 } from "../graphql/github";
 import { showNotificationError } from "./modal";
@@ -25,7 +25,7 @@ export const NewIssueForm: React.FC<{ repository: RepositoryFieldsFragment }> = 
       .mutate<CreateIssueMutation, CreateIssueMutationVariables>({
         mutation: CreateIssueDocument,
         variables: { issue: { repositoryId: repository.id, title, body } },
-        refetchQueries: [GetIssuesDocument],
+        refetchQueries: [GetIssuesListDocument],
       })
       .then(() => {
         form.resetFields();

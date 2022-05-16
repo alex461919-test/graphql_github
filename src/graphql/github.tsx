@@ -23711,22 +23711,33 @@ export type GetRepositoryQueryVariables = Exact<{
 
 export type GetRepositoryQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string } } | null };
 
-export type IssueFieldsFragment = { __typename?: 'Issue', id: string, title: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
+export type IssueFieldsFragment = { __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
 
-export type GetIssuesQueryVariables = Exact<{
+export type GetIssuesListQueryVariables = Exact<{
   name: Scalars['String'];
   owner: Scalars['String'];
 }>;
 
 
-export type GetIssuesQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issues: { __typename?: 'IssueConnection', totalCount: number, nodes?: Array<{ __typename?: 'Issue', id: string, title: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null } } | null };
+export type GetIssuesListQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issues: { __typename?: 'IssueConnection', totalCount: number, nodes?: Array<{ __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null } } | null };
 
 export type CreateIssueMutationVariables = Exact<{
   issue: CreateIssueInput;
 }>;
 
 
-export type CreateIssueMutation = { __typename?: 'Mutation', createIssue?: { __typename?: 'CreateIssuePayload', issue?: { __typename?: 'Issue', id: string, title: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
+export type CreateIssueMutation = { __typename?: 'Mutation', createIssue?: { __typename?: 'CreateIssuePayload', issue?: { __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
+
+export type CommentFieldsFragment = { __typename?: 'IssueComment', id: string, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
+
+export type GetIssueQueryVariables = Exact<{
+  name: Scalars['String'];
+  owner: Scalars['String'];
+  number: Scalars['Int'];
+}>;
+
+
+export type GetIssueQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issue?: { __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, comments: { __typename?: 'IssueCommentConnection', totalCount: number, nodes?: Array<{ __typename?: 'IssueComment', id: string, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null }, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
 
 export const RepositoryFieldsFragmentDoc = gql`
     fragment RepositoryFields on Repository {
@@ -23751,6 +23762,20 @@ export const IssueFieldsFragmentDoc = gql`
     fragment IssueFields on Issue {
   id
   title
+  number
+  body
+  createdAt
+  author {
+    ... on User {
+      ...UserFields
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export const CommentFieldsFragmentDoc = gql`
+    fragment CommentFields on IssueComment {
+  id
+  body
   createdAt
   author {
     ... on User {
@@ -23869,8 +23894,8 @@ export function useGetRepositoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetRepositoryQueryHookResult = ReturnType<typeof useGetRepositoryQuery>;
 export type GetRepositoryLazyQueryHookResult = ReturnType<typeof useGetRepositoryLazyQuery>;
 export type GetRepositoryQueryResult = Apollo.QueryResult<GetRepositoryQuery, GetRepositoryQueryVariables>;
-export const GetIssuesDocument = gql`
-    query getIssues($name: String!, $owner: String!) {
+export const GetIssuesListDocument = gql`
+    query getIssuesList($name: String!, $owner: String!) {
   repository(name: $name, owner: $owner) {
     id
     issues(first: 15, orderBy: {field: CREATED_AT, direction: DESC}) {
@@ -23884,33 +23909,33 @@ export const GetIssuesDocument = gql`
     ${IssueFieldsFragmentDoc}`;
 
 /**
- * __useGetIssuesQuery__
+ * __useGetIssuesListQuery__
  *
- * To run a query within a React component, call `useGetIssuesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetIssuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetIssuesListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIssuesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetIssuesQuery({
+ * const { data, loading, error } = useGetIssuesListQuery({
  *   variables: {
  *      name: // value for 'name'
  *      owner: // value for 'owner'
  *   },
  * });
  */
-export function useGetIssuesQuery(baseOptions: Apollo.QueryHookOptions<GetIssuesQuery, GetIssuesQueryVariables>) {
+export function useGetIssuesListQuery(baseOptions: Apollo.QueryHookOptions<GetIssuesListQuery, GetIssuesListQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetIssuesQuery, GetIssuesQueryVariables>(GetIssuesDocument, options);
+        return Apollo.useQuery<GetIssuesListQuery, GetIssuesListQueryVariables>(GetIssuesListDocument, options);
       }
-export function useGetIssuesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIssuesQuery, GetIssuesQueryVariables>) {
+export function useGetIssuesListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIssuesListQuery, GetIssuesListQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetIssuesQuery, GetIssuesQueryVariables>(GetIssuesDocument, options);
+          return Apollo.useLazyQuery<GetIssuesListQuery, GetIssuesListQueryVariables>(GetIssuesListDocument, options);
         }
-export type GetIssuesQueryHookResult = ReturnType<typeof useGetIssuesQuery>;
-export type GetIssuesLazyQueryHookResult = ReturnType<typeof useGetIssuesLazyQuery>;
-export type GetIssuesQueryResult = Apollo.QueryResult<GetIssuesQuery, GetIssuesQueryVariables>;
+export type GetIssuesListQueryHookResult = ReturnType<typeof useGetIssuesListQuery>;
+export type GetIssuesListLazyQueryHookResult = ReturnType<typeof useGetIssuesListLazyQuery>;
+export type GetIssuesListQueryResult = Apollo.QueryResult<GetIssuesListQuery, GetIssuesListQueryVariables>;
 export const CreateIssueDocument = gql`
     mutation CreateIssue($issue: CreateIssueInput!) {
   createIssue(input: $issue) {
@@ -23946,3 +23971,50 @@ export function useCreateIssueMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateIssueMutationHookResult = ReturnType<typeof useCreateIssueMutation>;
 export type CreateIssueMutationResult = Apollo.MutationResult<CreateIssueMutation>;
 export type CreateIssueMutationOptions = Apollo.BaseMutationOptions<CreateIssueMutation, CreateIssueMutationVariables>;
+export const GetIssueDocument = gql`
+    query getIssue($name: String!, $owner: String!, $number: Int!) {
+  repository(name: $name, owner: $owner) {
+    id
+    issue(number: $number) {
+      ...IssueFields
+      comments(first: 10) {
+        totalCount
+        nodes {
+          ...CommentFields
+        }
+      }
+    }
+  }
+}
+    ${IssueFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}`;
+
+/**
+ * __useGetIssueQuery__
+ *
+ * To run a query within a React component, call `useGetIssueQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIssueQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIssueQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *      owner: // value for 'owner'
+ *      number: // value for 'number'
+ *   },
+ * });
+ */
+export function useGetIssueQuery(baseOptions: Apollo.QueryHookOptions<GetIssueQuery, GetIssueQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetIssueQuery, GetIssueQueryVariables>(GetIssueDocument, options);
+      }
+export function useGetIssueLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIssueQuery, GetIssueQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetIssueQuery, GetIssueQueryVariables>(GetIssueDocument, options);
+        }
+export type GetIssueQueryHookResult = ReturnType<typeof useGetIssueQuery>;
+export type GetIssueLazyQueryHookResult = ReturnType<typeof useGetIssueLazyQuery>;
+export type GetIssueQueryResult = Apollo.QueryResult<GetIssueQuery, GetIssueQueryVariables>;

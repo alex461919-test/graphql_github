@@ -10,7 +10,15 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider as StyledThemeProvider } from "@emotion/react";
 import { styledTheme } from "./mix/Styled";
 
-const client = new ApolloClient({ cache: new InMemoryCache(), link });
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "cache-and-network",
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 

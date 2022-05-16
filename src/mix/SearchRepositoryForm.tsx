@@ -35,7 +35,7 @@ export const SearchRepositoryForm: React.FC<{ onSelect?: (arg: RepositoryFieldsF
 
   return (
     <Form form={form} layout="vertical" labelAlign="left" onFinish={onFinish} autoComplete="off">
-      <Box mb="1rem" minWidth="26rem">
+      <Box mb="1rem">
         <Title className="Auth-title" level={4}>
           Поиск
         </Title>
