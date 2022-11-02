@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { link } from "./api";
 import { AuthProvider } from "./routes/Auth";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import { ThemeProvider as StyledThemeProvider } from "@emotion/react";
 import { styledTheme } from "./mix/Styled";
 
@@ -26,9 +26,9 @@ root.render(
   <ApolloProvider client={client}>
     <StyledThemeProvider theme={styledTheme}>
       <AuthProvider>
-        <BrowserRouter>
+        <Router>
           <App />
-        </BrowserRouter>
+        </Router>
       </AuthProvider>
     </StyledThemeProvider>
   </ApolloProvider>
