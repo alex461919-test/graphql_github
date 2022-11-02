@@ -30,6 +30,9 @@ fragment RepositoryFields on Repository {
   owner {
     login
   }
+  issues(states: OPEN) {
+    totalCount
+  }
 }
 
 query getRepository($name: String!, $owner: String!) {

@@ -10,6 +10,7 @@ export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
     name,
     url,
     owner: { login },
+    issues: { totalCount },
   },
 }) => {
   const dataSource = [
@@ -32,6 +33,11 @@ export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
       key: "4",
       label: "Url:",
       value: <a href={url}>{url}</a>,
+    },
+    {
+      key: "5",
+      label: "Открытых вопросов:",
+      value: totalCount,
     },
   ];
   const columns = [

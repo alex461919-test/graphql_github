@@ -23699,9 +23699,9 @@ export type SearchRepositoryQueryVariables = Exact<{
 }>;
 
 
-export type SearchRepositoryQuery = { __typename?: 'Query', search: { __typename?: 'SearchResultItemConnection', repositoryCount: number, nodes?: Array<{ __typename?: 'App' } | { __typename?: 'Discussion' } | { __typename?: 'Issue' } | { __typename?: 'MarketplaceListing' } | { __typename?: 'Organization' } | { __typename?: 'PullRequest' } | { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string } } | { __typename?: 'User' } | null> | null } };
+export type SearchRepositoryQuery = { __typename?: 'Query', search: { __typename?: 'SearchResultItemConnection', repositoryCount: number, nodes?: Array<{ __typename?: 'App' } | { __typename?: 'Discussion' } | { __typename?: 'Issue' } | { __typename?: 'MarketplaceListing' } | { __typename?: 'Organization' } | { __typename?: 'PullRequest' } | { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string }, issues: { __typename?: 'IssueConnection', totalCount: number } } | { __typename?: 'User' } | null> | null } };
 
-export type RepositoryFieldsFragment = { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string } };
+export type RepositoryFieldsFragment = { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string }, issues: { __typename?: 'IssueConnection', totalCount: number } };
 
 export type GetRepositoryQueryVariables = Exact<{
   name: Scalars['String'];
@@ -23709,7 +23709,7 @@ export type GetRepositoryQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoryQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string } } | null };
+export type GetRepositoryQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string }, issues: { __typename?: 'IssueConnection', totalCount: number } } | null };
 
 export type IssueFieldsFragment = { __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
 
@@ -23754,6 +23754,9 @@ export const RepositoryFieldsFragmentDoc = gql`
   url
   owner {
     login
+  }
+  issues(states: OPEN) {
+    totalCount
   }
 }
     `;
