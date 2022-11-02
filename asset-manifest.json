@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/graphql_github/static/css/main.0cc28ed3.css",
-    "main.js": "/graphql_github/static/js/main.74b3adce.js",
+    "main.js": "/graphql_github/static/js/main.0ea2c5ba.js",
     "static/js/787.ca85f951.chunk.js": "/graphql_github/static/js/787.ca85f951.chunk.js",
     "index.html": "/graphql_github/index.html",
     "main.0cc28ed3.css.map": "/graphql_github/static/css/main.0cc28ed3.css.map",
-    "main.74b3adce.js.map": "/graphql_github/static/js/main.74b3adce.js.map",
+    "main.0ea2c5ba.js.map": "/graphql_github/static/js/main.0ea2c5ba.js.map",
     "787.ca85f951.chunk.js.map": "/graphql_github/static/js/787.ca85f951.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0cc28ed3.css",
-    "static/js/main.74b3adce.js"
+    "static/js/main.0ea2c5ba.js"
   ]
 }
