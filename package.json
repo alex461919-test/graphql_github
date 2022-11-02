@@ -41,11 +41,11 @@
     "@types/styled-system__should-forward-prop": "^5.1.2"
   },
   "scripts": {
+    "generate": "graphql-codegen --config codegen.yml",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "generate": "graphql-codegen --config codegen.yml"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
