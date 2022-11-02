@@ -2,6 +2,7 @@
   "name": "graphql_github",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alex461919-test.github.io/graphql_github/",
   "dependencies": {
     "@apollo/client": "^3.6.2",
     "@emotion/react": "^11.9.0",
