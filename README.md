@@ -16,6 +16,8 @@
 
 Стандартный набор скриптов `npm run start` , `npm run build`. Генерация типов TypeScript и react хуков на основе схемы GraphQL - `npm run generator`.
 
-Рабочая сборка на githup https://alex461919-test.github.io/graphql_github/ .
+Для авторизации на github необходим personal access token. Подробнее здесь https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token .
 
-Для авторизации на github необходим personal access token. Подробнее здесь https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+Рабочая сборка на github https://alex461919-test.github.io/graphql_github/ .
+
+Нарисовалась проблема совместимости github actions, github pages и BrowserRouter. Детально разбираться лень было, перешел на HashRouter.
