@@ -14,6 +14,7 @@ jobs:
         run: |
           yarn install
           yarn build
+          yarn deploy
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
