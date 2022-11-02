@@ -96,3 +96,12 @@ query getIssue($name: String!, $owner: String!, $number: Int!) {
     }
   }
 }
+mutation addComment($comment: AddCommentInput!) {
+  addComment(input: $comment) {
+    commentEdge {
+      node {
+        ...CommentFields
+      }
+    }
+  }
+}

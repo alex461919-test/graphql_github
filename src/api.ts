@@ -52,7 +52,7 @@ const customFetch: typeof fetch = async (...args) => {
   activeProcesses([...activeProcesses(), reqid]);
   try {
     // Имитация работы по сети
-    await delay(500);
+    await delay(600);
     return await fetch(...args);
   } finally {
     activeProcesses(activeProcesses().filter(not(reqid)));
