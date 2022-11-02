@@ -3,7 +3,6 @@ import { setContext } from "@apollo/client/link/context";
 import { message } from "antd";
 import { MessageType } from "antd/lib/message";
 import debounce from "lodash.debounce";
-import { resolve } from "path";
 
 const personalToken = makeVar<string>("");
 const activeProcesses = makeVar<string[]>([]);

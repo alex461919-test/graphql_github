@@ -1,7 +1,5 @@
-import { useApolloClient } from "@apollo/client";
 import { Button, Form, Typography } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { Callbacks } from "rc-field-form/lib/interface";
 import { ChangeEventHandler, useCallback, useEffect, useState } from "react";
 import { IssueFieldsFragment, GetIssueDocument, useAddCommentMutation } from "../graphql/github";
 import { showNotificationError } from "./modal";

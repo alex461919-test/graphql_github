@@ -9,8 +9,7 @@ import { AuthProvider } from "./routes/Auth";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider as StyledThemeProvider } from "@emotion/react";
 import { styledTheme } from "./mix/Styled";
-import ttt from "./test";
-ttt();
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
