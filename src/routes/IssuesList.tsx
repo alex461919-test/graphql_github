@@ -9,7 +9,7 @@ import { Box } from "../mix/Styled";
 
 const { Title } = Typography;
 
-export const IssuesList: React.FC = () => {
+const IssuesList: React.FC = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { owner, name } = params;
@@ -73,3 +73,5 @@ export const IssuesList: React.FC = () => {
     </Box>
   );
 };
+
+export { IssuesList };

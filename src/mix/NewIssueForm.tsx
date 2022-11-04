@@ -14,7 +14,7 @@ import { Box } from "./Styled";
 
 const { Title } = Typography;
 
-export const NewIssueForm: React.FC<{ repository: RepositoryFieldsFragment }> = ({ repository }) => {
+const NewIssueForm: React.FC<{ repository: RepositoryFieldsFragment }> = ({ repository }) => {
   const client = useApolloClient();
   const [form] = Form.useForm();
   const [title, setTitle] = useState("");
@@ -65,3 +65,5 @@ export const NewIssueForm: React.FC<{ repository: RepositoryFieldsFragment }> = 
     </Form>
   );
 };
+
+export { NewIssueForm };

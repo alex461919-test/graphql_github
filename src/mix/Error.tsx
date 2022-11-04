@@ -10,33 +10,7 @@ interface ErrorStatus {
   errorDescription?: string;
 }
 const ErrorPage = (error: ErrorStatus) => (
-  <Box
-    flexDirection="column"
-    className="Full-window-layout"
-    /*
-    position="fixed"
-    top={0}
-    left={0}
-    bottom={0}
-    right={0}
-    zIndex={1}
-    backgroundColor="rgba(255,255,255,.9)"
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    //className="Full-window-layout position-fixed"
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      zIndex: 1,
-
-      backgroundColor: "rgba(255,255,255,.9)",
-    }}
-    */
-  >
+  <Box flexDirection="column" className="Full-window-layout">
     <svg
       viewBox="0 0 16 16"
       width="10em"

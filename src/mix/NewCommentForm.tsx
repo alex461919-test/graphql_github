@@ -7,7 +7,7 @@ import { Box } from "./Styled";
 
 const { Title } = Typography;
 
-export const NewCommentForm: React.FC<{ issue: IssueFieldsFragment }> = ({ issue }) => {
+const NewCommentForm: React.FC<{ issue: IssueFieldsFragment }> = ({ issue }) => {
   const [form] = Form.useForm();
   const [body, setBody] = useState("");
 
@@ -53,3 +53,5 @@ export const NewCommentForm: React.FC<{ issue: IssueFieldsFragment }> = ({ issue
     </Form>
   );
 };
+
+export { NewCommentForm };

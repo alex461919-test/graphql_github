@@ -4,7 +4,7 @@ import { Box } from "./Styled";
 
 const { Title } = Typography;
 
-export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
+const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
   repository: {
     id,
     name,
@@ -61,3 +61,5 @@ export const Repository: React.FC<{ repository: RepositoryFieldsFragment }> = ({
     </>
   );
 };
+
+export { Repository };

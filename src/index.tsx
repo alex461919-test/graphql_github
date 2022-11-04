@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import { link } from "./api";
+import { link } from "./fetchApi";
 import { AuthProvider } from "./routes/Auth";
 import { HashRouter as Router } from "react-router-dom";
 import { ThemeProvider as StyledThemeProvider } from "@emotion/react";
@@ -33,15 +33,6 @@ root.render(
     </StyledThemeProvider>
   </ApolloProvider>
 );
-
-/*
- <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </React.StrictMode>
-
-*/
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

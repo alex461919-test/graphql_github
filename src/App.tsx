@@ -23,32 +23,4 @@ function App() {
   return <></>;
 }
 
-/*
-  <Routes>
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/" element={<Home />}>
-        <Route path="repository/:repoId" element={<Repository />} />
-      </Route>
-    </Routes>
-  );
-//const client = useApolloClient(); //: ApolloClient<object> {}
-  // console.dir(client.link);
-  //const { loading, error, data } = useQuery<{ viewer: User }>(WHOAMI);
-  console.log("match: ", authMatch);
-  console.log("user: ", user);
- const navigate = useNavigate();
-  const authMatch = useMatch("/auth");
-  //console.log("match: ", authMatch);
-  //console.log("user: ", user);
- useEffect(() => {
-    if (!user && !authMatch && error) navigate("/auth");
-    if (user && authMatch) navigate("/");
-  }, [authMatch, error, navigate, user]);
-
- <Route path="users" element={<Users />}>
-        <Route path="me" element={<OwnUserProfile />} />
-        <Route path=":id" element={<UserProfile />} />
-      </Route>
-*/
-
 export default App;

@@ -15,10 +15,12 @@ function showModal<T extends Exclude<ModalFuncProps["type"], undefined>>(fn: T, 
     });
   });
 }
-export function showModalConfirm(...args: [string, string]) {
+
+function showModalConfirm(...args: [string, string]) {
   return showModal("confirm", ...args);
 }
-export function showModalRetry(title: string, content: string | JSX.Element) {
+
+function showModalRetry(title: string, content: string | JSX.Element) {
   return new Promise<boolean>((resolve) => {
     Modal.confirm({
       title,
@@ -34,6 +36,8 @@ export function showModalRetry(title: string, content: string | JSX.Element) {
   });
 }
 
-export function showNotificationError(props: Omit<ArgsProps, "duration" | "placement">) {
+function showNotificationError(props: Omit<ArgsProps, "duration" | "placement">) {
   notification.error({ ...props, duration: 10, placement: "bottomRight" });
 }
+
+export { showModalConfirm, showModalRetry, showNotificationError };

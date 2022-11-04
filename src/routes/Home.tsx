@@ -14,7 +14,7 @@ import { Repository } from "../mix/Repository";
 import { isRepositoryFieldsFragment } from "../graphql/additional";
 import { showNotificationError } from "../mix/modal";
 
-export const Home: React.FC = () => {
+const Home: React.FC = () => {
   const client = useApolloClient();
   const { owner, name } = useParams();
   const navigate = useNavigate();
@@ -63,3 +63,5 @@ export const Home: React.FC = () => {
     </ReflexContainer>
   );
 };
+
+export { Home };

@@ -9,7 +9,7 @@ import { NewCommentForm } from "../mix/NewCommentForm";
 
 const { Title } = Typography;
 
-export const Issue: React.FC = () => {
+const Issue: React.FC = () => {
   const { owner, name, issueNumber } = useParams();
   const navigate = useNavigate();
 
@@ -77,3 +77,5 @@ export const Issue: React.FC = () => {
     </Box>
   );
 };
+
+export { Issue };

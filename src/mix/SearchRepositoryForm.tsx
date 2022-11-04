@@ -12,7 +12,7 @@ import { Box } from "./Styled";
 
 const { Title } = Typography;
 
-export const SearchRepositoryForm: React.FC<{ onSelect?: (arg: RepositoryFieldsFragment) => void }> = ({ onSelect }) => {
+const SearchRepositoryForm: React.FC<{ onSelect?: (arg: RepositoryFieldsFragment) => void }> = ({ onSelect }) => {
   const client = useApolloClient();
   const [form] = Form.useForm();
   const [options, setOptions] = useState<OptionType[]>([]);
@@ -85,3 +85,5 @@ async function getSearchRepositoryOptions(client: ApolloClient<object>, searchTe
       }
     });
 }
+
+export { SearchRepositoryForm };

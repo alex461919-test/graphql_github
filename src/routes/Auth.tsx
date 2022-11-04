@@ -1,13 +1,13 @@
 import React, { PropsWithChildren } from "react";
 import { useApolloClient } from "@apollo/client";
 import { Form, Input, Button, Typography, Checkbox } from "antd";
-import { personalToken } from "../api";
+import { personalToken } from "../fetchApi";
 import { GetCurrentViewerDocument, useGetCurrentViewerQuery, UserFieldsFragment } from "../graphql/github";
 import { Box } from "../mix/Styled";
 
 const { Title } = Typography;
 
-export const Auth = () => {
+const Auth = () => {
   const client = useApolloClient();
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
@@ -66,12 +66,13 @@ export const Auth = () => {
 
 const AuthContext = React.createContext<{ pending: boolean; user: UserFieldsFragment | null }>(null!);
 
-export const useAuth = () => React.useContext(AuthContext);
+const useAuth = () => React.useContext(AuthContext);
 
-export const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const { error, data } = useGetCurrentViewerQuery();
   const user = data?.viewer || null;
   const pending = !error && !user;
 
   return <AuthContext.Provider value={{ user, pending }}>{children}</AuthContext.Provider>;
 };
+export { Auth, useAuth, AuthProvider };
