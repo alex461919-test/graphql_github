@@ -23711,7 +23711,7 @@ export type GetRepositoryQueryVariables = Exact<{
 
 export type GetRepositoryQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, name: string, description?: string | null, url: any, owner: { __typename?: 'Organization', login: string } | { __typename?: 'User', login: string }, issues: { __typename?: 'IssueConnection', totalCount: number } } | null };
 
-export type IssueFieldsFragment = { __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
+export type IssueFieldsFragment = { __typename?: 'Issue', id: string, title: string, number: number, bodyHTML: any, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
 
 export type GetIssuesListQueryVariables = Exact<{
   name: Scalars['String'];
@@ -23719,16 +23719,16 @@ export type GetIssuesListQueryVariables = Exact<{
 }>;
 
 
-export type GetIssuesListQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issues: { __typename?: 'IssueConnection', totalCount: number, nodes?: Array<{ __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null } } | null };
+export type GetIssuesListQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issues: { __typename?: 'IssueConnection', totalCount: number, nodes?: Array<{ __typename?: 'Issue', id: string, title: string, number: number, bodyHTML: any, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null } } | null };
 
 export type CreateIssueMutationVariables = Exact<{
   issue: CreateIssueInput;
 }>;
 
 
-export type CreateIssueMutation = { __typename?: 'Mutation', createIssue?: { __typename?: 'CreateIssuePayload', issue?: { __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
+export type CreateIssueMutation = { __typename?: 'Mutation', createIssue?: { __typename?: 'CreateIssuePayload', issue?: { __typename?: 'Issue', id: string, title: string, number: number, bodyHTML: any, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
 
-export type CommentFieldsFragment = { __typename?: 'IssueComment', id: string, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
+export type CommentFieldsFragment = { __typename?: 'IssueComment', id: string, bodyHTML: any, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null };
 
 export type GetIssueQueryVariables = Exact<{
   name: Scalars['String'];
@@ -23737,14 +23737,14 @@ export type GetIssueQueryVariables = Exact<{
 }>;
 
 
-export type GetIssueQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issue?: { __typename?: 'Issue', id: string, title: string, number: number, body: string, createdAt: any, comments: { __typename?: 'IssueCommentConnection', totalCount: number, nodes?: Array<{ __typename?: 'IssueComment', id: string, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null }, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
+export type GetIssueQuery = { __typename?: 'Query', repository?: { __typename?: 'Repository', id: string, issue?: { __typename?: 'Issue', id: string, title: string, number: number, bodyHTML: any, createdAt: any, comments: { __typename?: 'IssueCommentConnection', totalCount: number, nodes?: Array<{ __typename?: 'IssueComment', id: string, bodyHTML: any, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null> | null }, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null };
 
 export type AddCommentMutationVariables = Exact<{
   comment: AddCommentInput;
 }>;
 
 
-export type AddCommentMutation = { __typename?: 'Mutation', addComment?: { __typename?: 'AddCommentPayload', commentEdge?: { __typename?: 'IssueCommentEdge', node?: { __typename?: 'IssueComment', id: string, body: string, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null } | null };
+export type AddCommentMutation = { __typename?: 'Mutation', addComment?: { __typename?: 'AddCommentPayload', commentEdge?: { __typename?: 'IssueCommentEdge', node?: { __typename?: 'IssueComment', id: string, bodyHTML: any, createdAt: any, author?: { __typename?: 'Bot' } | { __typename?: 'EnterpriseUserAccount' } | { __typename?: 'Mannequin' } | { __typename?: 'Organization' } | { __typename?: 'User', id: string, login: string, name?: string | null, avatarUrl: any } | null } | null } | null } | null };
 
 export const RepositoryFieldsFragmentDoc = gql`
     fragment RepositoryFields on Repository {
@@ -23773,7 +23773,7 @@ export const IssueFieldsFragmentDoc = gql`
   id
   title
   number
-  body
+  bodyHTML
   createdAt
   author {
     ... on User {
@@ -23785,7 +23785,7 @@ export const IssueFieldsFragmentDoc = gql`
 export const CommentFieldsFragmentDoc = gql`
     fragment CommentFields on IssueComment {
   id
-  body
+  bodyHTML
   createdAt
   author {
     ... on User {

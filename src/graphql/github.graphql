@@ -45,7 +45,7 @@ fragment IssueFields on Issue {
   id
   title
   number
-  body
+  bodyHTML
   createdAt
   author {
     ... on User {
@@ -76,7 +76,7 @@ mutation CreateIssue($issue: CreateIssueInput!) {
 
 fragment CommentFields on IssueComment {
   id
-  body
+  bodyHTML
   createdAt
   author {
     ... on User {
