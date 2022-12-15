@@ -41,11 +41,11 @@ const setAuthorizationLink = setContext((request, previousContext) => {
 function not<T>(pattern: T) {
   return (value: T): boolean => pattern !== value;
 }
-
+/*
 function delay(duration: number) {
   return new Promise(resolve => setTimeout(resolve, duration));
 }
-
+*/
 const customFetch: typeof fetch = async (...args) => {
   const reqid = (Math.random() + 1).toString(36).substring(2);
   activeProcesses([...activeProcesses(), reqid]);
