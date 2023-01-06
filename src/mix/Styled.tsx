@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "@emotion/styled";
-import shouldForwardProp from "@styled-system/should-forward-prop";
+import React from 'react';
+import styled from '@emotion/styled';
+import shouldForwardProp from '@styled-system/should-forward-prop';
 import {
   color,
   space,
@@ -20,12 +20,10 @@ import {
   FlexProps,
   BackgroundProps,
   TypographyProps,
-} from "styled-system";
+} from 'styled-system';
 
 export const styledTheme = {
-  space: Array(512)
-    .fill(null)
-    .map((value, index) => index),
+  space: Array.from({ length: 512 }).map((value, index) => index),
 };
 
 export interface BoxProps
@@ -39,7 +37,7 @@ export interface BoxProps
     BackgroundProps,
     TypographyProps {}
 
-const _Box_ = styled("div", process.env.NODE_ENV === "production" ? { shouldForwardProp } : {})<BoxProps>`
+const _Box_ = styled('div', process.env.NODE_ENV === 'production' ? { shouldForwardProp } : {})<BoxProps>`
   ${color}
   ${space}
   ${layout}
